@@ -18,8 +18,8 @@ public class SaldoBipActivity extends Activity
     }
     public void sendMessage(View view) {
         Intent intent = new Intent(this, RequestBalanceActivity.class);
-        EditText editText = (EditText) findViewById(R.id.edit_message);
-        String message = editText.getText().toString();
+        EditText editNumber = (EditText) findViewById(R.id.edit_message);
+        String message = editNumber.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }

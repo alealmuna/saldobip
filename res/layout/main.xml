@@ -6,6 +6,7 @@
     <EditText android:id="@+id/edit_message"
         android:layout_width="0dp"
         android:layout_weight="1"
+        android:inputType="number"
         android:layout_height="wrap_content"
         android:hint="@string/edit_message" />
     <Button android:id="@+id/button_send"
