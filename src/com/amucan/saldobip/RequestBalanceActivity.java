@@ -7,11 +7,13 @@ import android.os.Bundle;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.io.UnsupportedEncodingException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
 import org.apache.http.NameValuePair;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -24,7 +26,10 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 */
 
 public class RequestBalanceActivity extends Activity {
-    private  List<NameValuePair> sessionParams = new ArrayList<NameValuePair>(7);
+
+    /* sessionParams holds the request parameters*/
+    private  List<NameValuePair> sessionParams = new ArrayList<NameValuePair>(8);
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

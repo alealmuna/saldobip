@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">SaldoBip</string>
-    <string name="edit_message">Ingrese codigo</string>
-    <string name="button_send">Saldo</string>
+    <string name="app_name">"SaldoBip"</string>
+    <string name="edit_message">"Código de tarjeta"</string>
+    <string name="button_send">"Saldo"</string>
+    <string name="button_scan">"Escanear bip!"</string>
 </resources>
