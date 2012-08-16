@@ -4,4 +4,5 @@
     <string name="edit_message">"Código de tarjeta"</string>
     <string name="button_send">"Saldo"</string>
     <string name="button_scan">"Escanear bip!"</string>
+    <string name="req_dialog_title">"Tu saldo es:"</string>
 </resources>
