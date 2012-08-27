@@ -29,8 +29,9 @@ public class RequestDao extends AbstractDao<Request, Long> {
         public final static Property Time = new Property(2, String.class, "time", false, "TIME");
         public final static Property Latitude = new Property(3, Double.class, "latitude", false, "LATITUDE");
         public final static Property Longitude = new Property(4, Double.class, "longitude", false, "LONGITUDE");
-        public final static Property Date = new Property(5, java.util.Date.class, "date", false, "DATE");
-        public final static Property UserId = new Property(6, Long.class, "userId", false, "USER_ID");
+        public final static Property Balance = new Property(5, Integer.class, "balance", false, "BALANCE");
+        public final static Property Date = new Property(6, java.util.Date.class, "date", false, "DATE");
+        public final static Property UserId = new Property(7, Long.class, "userId", false, "USER_ID");
     };
 
     private DaoSession daoSession;
@@ -54,8 +55,9 @@ public class RequestDao extends AbstractDao<Request, Long> {
                 "'TIME' TEXT NOT NULL ," + // 2: time
                 "'LATITUDE' REAL," + // 3: latitude
                 "'LONGITUDE' REAL," + // 4: longitude
-                "'DATE' INTEGER," + // 5: date
-                "'USER_ID' INTEGER);"; // 6: userId
+                "'BALANCE' INTEGER," + // 5: balance
+                "'DATE' INTEGER," + // 6: date
+                "'USER_ID' INTEGER);"; // 7: userId
         db.execSQL(sql);
     }
 
@@ -91,14 +93,19 @@ public class RequestDao extends AbstractDao<Request, Long> {
             stmt.bindDouble(5, longitude);
         }
  
+        Integer balance = entity.getBalance();
+        if (balance != null) {
+            stmt.bindLong(6, balance);
+        }
+ 
         java.util.Date date = entity.getDate();
         if (date != null) {
-            stmt.bindLong(6, date.getTime());
+            stmt.bindLong(7, date.getTime());
         }
  
         Long userId = entity.getUserId();
         if (userId != null) {
-            stmt.bindLong(7, userId);
+            stmt.bindLong(8, userId);
         }
     }
 
@@ -123,8 +130,9 @@ public class RequestDao extends AbstractDao<Request, Long> {
             cursor.getString(offset + 2), // time
             cursor.isNull(offset + 3) ? null : cursor.getDouble(offset + 3), // latitude
             cursor.isNull(offset + 4) ? null : cursor.getDouble(offset + 4), // longitude
-            cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)), // date
-            cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6) // userId
+            cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // balance
+            cursor.isNull(offset + 6) ? null : new java.util.Date(cursor.getLong(offset + 6)), // date
+            cursor.isNull(offset + 7) ? null : cursor.getLong(offset + 7) // userId
         );
         return entity;
     }
@@ -137,8 +145,9 @@ public class RequestDao extends AbstractDao<Request, Long> {
         entity.setTime(cursor.getString(offset + 2));
         entity.setLatitude(cursor.isNull(offset + 3) ? null : cursor.getDouble(offset + 3));
         entity.setLongitude(cursor.isNull(offset + 4) ? null : cursor.getDouble(offset + 4));
-        entity.setDate(cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)));
-        entity.setUserId(cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6));
+        entity.setBalance(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
+        entity.setDate(cursor.isNull(offset + 6) ? null : new java.util.Date(cursor.getLong(offset + 6)));
+        entity.setUserId(cursor.isNull(offset + 7) ? null : cursor.getLong(offset + 7));
      }
     
     @Override

@@ -15,6 +15,7 @@ public class Request {
     private String time;
     private Double latitude;
     private Double longitude;
+    private Integer balance;
     private java.util.Date date;
     private Long userId;
 
@@ -35,12 +36,13 @@ public class Request {
         this.id = id;
     }
 
-    public Request(Long id, String cardId, String time, Double latitude, Double longitude, java.util.Date date, Long userId) {
+    public Request(Long id, String cardId, String time, Double latitude, Double longitude, Integer balance, java.util.Date date, Long userId) {
         this.id = id;
         this.cardId = cardId;
         this.time = time;
         this.latitude = latitude;
         this.longitude = longitude;
+        this.balance = balance;
         this.date = date;
         this.userId = userId;
     }
@@ -91,6 +93,14 @@ public class Request {
 
     public void setLongitude(Double longitude) {
         this.longitude = longitude;
+    }
+
+    public Integer getBalance() {
+        return balance;
+    }
+
+    public void setBalance(Integer balance) {
+        this.balance = balance;
     }
 
     public java.util.Date getDate() {
