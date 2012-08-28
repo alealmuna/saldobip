@@ -1,9 +1,10 @@
 package com.amucan.saldobip;
 
 import android.widget.TextView;
+import android.util.Log;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.io.UnsupportedEncodingException;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class RequestManager {
     String balance = "";
 
     try {
-      setParams(card_id);
+      setRequestParams(card_id);
       // Execute request
       httppost.setEntity(new UrlEncodedFormEntity(sessionParams));
       HttpResponse response = client.execute(httppost);
@@ -86,7 +87,7 @@ public class RequestManager {
   /**
   * Set params for balance request
   */
-  private void setParams(String card_id){
+  private void setRequestParams(String card_id){
     this.sessionParams.add(new BasicNameValuePair("NomDominio", "aft.cl"));
     this.sessionParams.add(new BasicNameValuePair("NomHost", "AFT"));
     this.sessionParams.add(new BasicNameValuePair("NomUsuario", "usuInternet"));
