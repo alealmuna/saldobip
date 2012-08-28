@@ -45,8 +45,8 @@ public class RequestAdapter extends ArrayAdapter<Request>{
         v = vi.inflate(R.layout.request_item, null);
         holder = new ViewHolder();
         holder.card_id = (TextView) v.findViewById(R.id.card_id);
-        holder.datetime = (TextView) v.findViewById(R.id.balance);
-        holder.balance = (TextView) v.findViewById(R.id.datetime);
+        holder.datetime = (TextView) v.findViewById(R.id.datetime);
+        holder.balance = (TextView) v.findViewById(R.id.balance);
         v.setTag(holder);
       }
       else
@@ -56,12 +56,12 @@ public class RequestAdapter extends ArrayAdapter<Request>{
       Request request = entries.get(position);
       if (request != null) {
         holder.card_id.setText(request.getCardId());
-        holder.datetime.setText("$" + request.getBalance());
+        holder.balance.setText("$" + request.getBalance());
         // TODO change getClientAdddress by getClientAddress
         SimpleDateFormat formatter;
         formatter = new SimpleDateFormat("EEE, dd LLL hh:mm aa");
         String formattedDate = formatter.format(request.getDate());
-        holder.balance.setText(formattedDate);
+        holder.datetime.setText(formattedDate);
       }
       return v;
     }
@@ -79,5 +79,4 @@ public class RequestAdapter extends ArrayAdapter<Request>{
       public TextView datetime;
       public TextView balance;
     }
-
   }    
