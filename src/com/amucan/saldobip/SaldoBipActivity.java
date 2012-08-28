@@ -16,11 +16,13 @@ import android.widget.EditText;
 
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
 import java.util.Date;
+import java.util.Locale;
 
 public class SaldoBipActivity extends FragmentActivity 
 {
@@ -29,15 +31,17 @@ public class SaldoBipActivity extends FragmentActivity
 	private DaoSession session;
 	private RequestDao requestDao;
 	private static String TAG = SaldoBipActivity.class.toString();
+  private DatabaseManager databaseManager;
 
   @Override
   public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    setContentView(R.layout.main);
-		this.session = DatabaseManager.getDaoSession(this.getApplicationContext());
+    this.session = this.databaseManager.getDaoSession(this.getApplicationContext());
     this.requestDao = this.session.getRequestDao();
-		this.addMockData();
+    this.addMockData();
+    Locale.setDefault(new Locale("es", "ES"));  
+    setContentView(R.layout.main);
   }
 
   private void showBalanceDialog(String balance) {
