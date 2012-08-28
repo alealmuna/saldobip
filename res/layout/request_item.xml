@@ -9,7 +9,6 @@
     android:layout_width="fill_parent">
     <LinearLayout 
       android:layout_height="wrap_content" 
-      android:padding="12dip"
       android:orientation="vertical">
   
       <TextView 
@@ -37,7 +36,6 @@
       <TextView 
         android:textSize="30dip" 
         android:id="@+id/balance"
-        android:paddingRight="20dip"
         android:layout_width="wrap_content"
         android:layout_gravity="center_vertical|right"
         android:layout_height="wrap_content"/>

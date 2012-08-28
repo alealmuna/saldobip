@@ -4,7 +4,6 @@
     android:layout_height="fill_parent">
     <ListView android:id="@android:id/list" 
         android:layout_height="fill_parent"
-        android:paddingLeft="20dip"
         android:layout_width="fill_parent">
     </ListView>
 </LinearLayout>
