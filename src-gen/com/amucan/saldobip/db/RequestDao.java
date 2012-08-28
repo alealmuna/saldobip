@@ -26,12 +26,11 @@ public class RequestDao extends AbstractDao<Request, Long> {
     public static class Properties {
         public final static Property Id = new Property(0, Long.class, "id", true, "_id");
         public final static Property CardId = new Property(1, String.class, "cardId", false, "CARD_ID");
-        public final static Property Time = new Property(2, String.class, "time", false, "TIME");
-        public final static Property Latitude = new Property(3, Double.class, "latitude", false, "LATITUDE");
-        public final static Property Longitude = new Property(4, Double.class, "longitude", false, "LONGITUDE");
-        public final static Property Balance = new Property(5, Integer.class, "balance", false, "BALANCE");
-        public final static Property Date = new Property(6, java.util.Date.class, "date", false, "DATE");
-        public final static Property UserId = new Property(7, Long.class, "userId", false, "USER_ID");
+        public final static Property Latitude = new Property(2, Double.class, "latitude", false, "LATITUDE");
+        public final static Property Longitude = new Property(3, Double.class, "longitude", false, "LONGITUDE");
+        public final static Property Balance = new Property(4, Integer.class, "balance", false, "BALANCE");
+        public final static Property Date = new Property(5, java.util.Date.class, "date", false, "DATE");
+        public final static Property UserId = new Property(6, Long.class, "userId", false, "USER_ID");
     };
 
     private DaoSession daoSession;
@@ -52,12 +51,11 @@ public class RequestDao extends AbstractDao<Request, Long> {
         String sql = "CREATE TABLE " + (ifNotExists? "IF NOT EXISTS ": "") + "'REQUEST' (" + //
                 "'_id' INTEGER PRIMARY KEY ," + // 0: id
                 "'CARD_ID' TEXT," + // 1: cardId
-                "'TIME' TEXT NOT NULL ," + // 2: time
-                "'LATITUDE' REAL," + // 3: latitude
-                "'LONGITUDE' REAL," + // 4: longitude
-                "'BALANCE' INTEGER," + // 5: balance
-                "'DATE' INTEGER," + // 6: date
-                "'USER_ID' INTEGER);"; // 7: userId
+                "'LATITUDE' REAL," + // 2: latitude
+                "'LONGITUDE' REAL," + // 3: longitude
+                "'BALANCE' INTEGER," + // 4: balance
+                "'DATE' INTEGER," + // 5: date
+                "'USER_ID' INTEGER);"; // 6: userId
         db.execSQL(sql);
     }
 
@@ -81,31 +79,30 @@ public class RequestDao extends AbstractDao<Request, Long> {
         if (cardId != null) {
             stmt.bindString(2, cardId);
         }
-        stmt.bindString(3, entity.getTime());
  
         Double latitude = entity.getLatitude();
         if (latitude != null) {
-            stmt.bindDouble(4, latitude);
+            stmt.bindDouble(3, latitude);
         }
  
         Double longitude = entity.getLongitude();
         if (longitude != null) {
-            stmt.bindDouble(5, longitude);
+            stmt.bindDouble(4, longitude);
         }
  
         Integer balance = entity.getBalance();
         if (balance != null) {
-            stmt.bindLong(6, balance);
+            stmt.bindLong(5, balance);
         }
  
         java.util.Date date = entity.getDate();
         if (date != null) {
-            stmt.bindLong(7, date.getTime());
+            stmt.bindLong(6, date.getTime());
         }
  
         Long userId = entity.getUserId();
         if (userId != null) {
-            stmt.bindLong(8, userId);
+            stmt.bindLong(7, userId);
         }
     }
 
@@ -127,12 +124,11 @@ public class RequestDao extends AbstractDao<Request, Long> {
         Request entity = new Request( //
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // id
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // cardId
-            cursor.getString(offset + 2), // time
-            cursor.isNull(offset + 3) ? null : cursor.getDouble(offset + 3), // latitude
-            cursor.isNull(offset + 4) ? null : cursor.getDouble(offset + 4), // longitude
-            cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5), // balance
-            cursor.isNull(offset + 6) ? null : new java.util.Date(cursor.getLong(offset + 6)), // date
-            cursor.isNull(offset + 7) ? null : cursor.getLong(offset + 7) // userId
+            cursor.isNull(offset + 2) ? null : cursor.getDouble(offset + 2), // latitude
+            cursor.isNull(offset + 3) ? null : cursor.getDouble(offset + 3), // longitude
+            cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4), // balance
+            cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)), // date
+            cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6) // userId
         );
         return entity;
     }
@@ -142,12 +138,11 @@ public class RequestDao extends AbstractDao<Request, Long> {
     public void readEntity(Cursor cursor, Request entity, int offset) {
         entity.setId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setCardId(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
-        entity.setTime(cursor.getString(offset + 2));
-        entity.setLatitude(cursor.isNull(offset + 3) ? null : cursor.getDouble(offset + 3));
-        entity.setLongitude(cursor.isNull(offset + 4) ? null : cursor.getDouble(offset + 4));
-        entity.setBalance(cursor.isNull(offset + 5) ? null : cursor.getInt(offset + 5));
-        entity.setDate(cursor.isNull(offset + 6) ? null : new java.util.Date(cursor.getLong(offset + 6)));
-        entity.setUserId(cursor.isNull(offset + 7) ? null : cursor.getLong(offset + 7));
+        entity.setLatitude(cursor.isNull(offset + 2) ? null : cursor.getDouble(offset + 2));
+        entity.setLongitude(cursor.isNull(offset + 3) ? null : cursor.getDouble(offset + 3));
+        entity.setBalance(cursor.isNull(offset + 4) ? null : cursor.getInt(offset + 4));
+        entity.setDate(cursor.isNull(offset + 5) ? null : new java.util.Date(cursor.getLong(offset + 5)));
+        entity.setUserId(cursor.isNull(offset + 6) ? null : cursor.getLong(offset + 6));
      }
     
     @Override

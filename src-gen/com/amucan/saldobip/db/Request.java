@@ -11,8 +11,6 @@ public class Request {
 
     private Long id;
     private String cardId;
-    /** Not-null value. */
-    private String time;
     private Double latitude;
     private Double longitude;
     private Integer balance;
@@ -36,10 +34,9 @@ public class Request {
         this.id = id;
     }
 
-    public Request(Long id, String cardId, String time, Double latitude, Double longitude, Integer balance, java.util.Date date, Long userId) {
+    public Request(Long id, String cardId, Double latitude, Double longitude, Integer balance, java.util.Date date, Long userId) {
         this.id = id;
         this.cardId = cardId;
-        this.time = time;
         this.latitude = latitude;
         this.longitude = longitude;
         this.balance = balance;
@@ -67,16 +64,6 @@ public class Request {
 
     public void setCardId(String cardId) {
         this.cardId = cardId;
-    }
-
-    /** Not-null value. */
-    public String getTime() {
-        return time;
-    }
-
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setTime(String time) {
-        this.time = time;
     }
 
     public Double getLatitude() {
