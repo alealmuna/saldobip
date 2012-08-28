@@ -34,5 +34,10 @@
       android:onClick="scanCard"
       android:text="@string/button_scan" />
   </LinearLayout>
+  <fragment 
+    android:name="com.amucan.saldobip.HistoryList"
+    android:id="@+id/history_list"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" />
 </LinearLayout>
 
