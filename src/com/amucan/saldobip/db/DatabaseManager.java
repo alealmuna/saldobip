@@ -2,6 +2,7 @@ package com.amucan.saldobip.db;
 
 import com.amucan.saldobip.db.DaoMaster.DevOpenHelper;
 import com.amucan.saldobip.db.DaoSession;
+import com.amucan.saldobip.db.RequestDao.Properties;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -44,6 +45,9 @@ public class DatabaseManager {
 	}
 	
 	public List<Request> getAllRequests(){
-		return this.requestDao.loadAll();
+    List requests = this.requestDao.queryBuilder()
+            .orderDesc(Properties.Date)
+            .list();
+		return requests;
 	}
 }
