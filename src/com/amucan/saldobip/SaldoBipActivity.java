@@ -32,6 +32,8 @@ public class SaldoBipActivity extends FragmentActivity
 	private RequestDao requestDao;
 	private static String TAG = SaldoBipActivity.class.toString();
   private DatabaseManager databaseManager;
+  private HistoryList historyList = new HistoryList(); 
+  private FragmentManager fm = null;
 
   @Override
   public void onCreate(Bundle savedInstanceState)
@@ -39,15 +41,22 @@ public class SaldoBipActivity extends FragmentActivity
     super.onCreate(savedInstanceState);
     this.session = this.databaseManager.getDaoSession(this.getApplicationContext());
     this.requestDao = this.session.getRequestDao();
-    this.addMockData();
+    //this.addMockData();
     Locale.setDefault(new Locale("es", "ES"));  
     setContentView(R.layout.main);
+    this.fm = getSupportFragmentManager();
+    if ((fm != null) && (savedInstanceState == null)) {
+      FragmentTransaction ft = this.fm.beginTransaction();
+      ft = fm.beginTransaction();
+      ft.add(R.id.history_frame, this.historyList);
+      ft.commit();
+    }
+    Log.d(TAG, "onCreate");
   }
 
   private void showBalanceDialog(String balance) {
-    FragmentManager fm = getSupportFragmentManager();
     BalanceDialog balanceDialog = new BalanceDialog(balance);
-    balanceDialog.show(fm, "balance_dialog");
+    balanceDialog.show(this.fm, "balance_dialog");
   }
 
   /**
@@ -85,10 +94,33 @@ public class SaldoBipActivity extends FragmentActivity
     }
   }
 
-  public void requestBalance(String card_number){
+  /**
+  * Run request
+  */
+  public void requestBalance(String card_id){
     RequestManager requestManager = new RequestManager();
-    String balance = requestManager.runRequest(card_number);
-    showBalanceDialog(balance);
+    String balance = requestManager.runRequest(card_id);
+    if (!balance.equals("")){
+      showBalanceDialog(balance);
+      addToHistory(balance,card_id);
+    }
+  }
+
+  public void addToHistory(String balance, String card_id){
+    Log.d(TAG, "Updating History");
+    int i_balance = Integer.parseInt(balance.replace(".",""));
+		try{
+      Request request = new Request(null, card_id,
+          -33.444518, -70.653664, i_balance, new Date(), new Long(123456));
+      this.requestDao.insert(request);
+		}catch(Exception e){
+			Log.e(TAG, e.getMessage());
+		}
+    if (fm != null) {
+      FragmentTransaction ft = this.fm.beginTransaction();
+      ft.replace(R.id.history_frame, this.historyList);
+      ft.commit();
+    }
   }
 
   /**
@@ -104,10 +136,10 @@ public class SaldoBipActivity extends FragmentActivity
 	private void addMockData(){
 		try{
 		  this.requestDao.deleteAll();
-      Request request = new Request(null,"123456","12:00",
+      Request request = new Request(null,"123456",
           -33.444518, -70.653664, 1500, new Date(),new Long(654321));
       this.requestDao.insert(request);
-      request = new Request(null,"234567","12:00",
+      request = new Request(null,"234567",
           -33.444518, -70.653664, 2500, new Date(),new Long(765432));
       this.requestDao.insert(request);
 		}catch(Exception e){
